@@ -1,0 +1,25 @@
+{
+  "name": "dom-doctor",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "deploy": "astro build && wrangler deploy",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.4.9",
+    "@astrojs/markdown-remark": "^7.3.10",
+    "@fontsource/caveat": "^5.3.0",
+    "@fontsource/literata": "^5.3.0",
+    "astro": "^7.4.13",
+    "unist-util-visit": "^5.2.0",
+    "wrangler": "^4.165.0"
+  }
+}

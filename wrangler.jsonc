@@ -1,0 +1,32 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "dom-doctor",
+	"main": "@astrojs/cloudflare/entrypoints/server",
+	"compatibility_date": "2026-11-17",
+	"compatibility_flags": ["nodejs_compat"],
+	"preview_urls": true,
+	"workers_dev": true,
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS",
+		"not_found_handling": "404-page"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"vars": {
+		"SITE_URL": "https://dom.doctor"
+	},
+	"send_email": [
+		{
+			"name": "EMAIL"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "dom-doctor-subscribers",
+			"database_id": "180c7d76-0f47-46ea-bd58-3fde8bc0fb53"
+		}
+	]
+}

@@ -1,0 +1,12 @@
+---
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY;
+---
+
+{sitekey ? (
+	<>
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
+		<div class="cf-turnstile" data-sitekey={sitekey} data-action="dom-doctor-form" />
+	</>
+) : (
+	<p class="form-hint">Turnstile site key missing. Set PUBLIC_TURNSTILE_SITEKEY for form protection.</p>
+)}

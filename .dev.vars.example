@@ -1,0 +1,4 @@
+# Copy to .dev.vars (gitignored). Never commit real secrets.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+CONTACT_TO=
+SITE_URL=http://localhost:4321

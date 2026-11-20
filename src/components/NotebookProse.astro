@@ -1,0 +1,28 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["notebook-prose", className]}>
+	<slot />
+</div>
+
+<style>
+	.notebook-prose :global(.margin-note) {
+		position: relative;
+	}
+
+	.notebook-prose :global(p[data-margin-note])::before {
+		content: attr(data-margin-note);
+		position: absolute;
+		left: calc(-1 * var(--margin) + 0.2rem);
+		width: calc(var(--margin) - 0.6rem);
+		font-family: "Caveat", cursive;
+		font-size: 0.95rem;
+		line-height: 1.15;
+		color: var(--ink-blue);
+	}
+</style>

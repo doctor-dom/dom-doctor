@@ -1,0 +1,33 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TurnstileWidget from "../components/TurnstileWidget.astro";
+
+const sent = Astro.url.searchParams.get("sent") === "1";
+const error = Astro.url.searchParams.get("error");
+---
+
+<BaseLayout title="Contact" current="contact">
+	<h1>Contact</h1>
+	<p class="notebook-meta">Form only. No published email address. Do not include patient information.</p>
+	{sent ? <p class="flash">Message sent. I will reply when I can.</p> : null}
+	{
+		error ? (
+			<p class="flash">Could not send: {error}. Try again or check Turnstile configuration.</p>
+		) : null
+	}
+	<form class="form-panel" method="post" action="/api/contact">
+		<label for="contact-name">Name</label>
+		<input id="contact-name" name="name" type="text" required autocomplete="name" />
+
+		<label for="contact-email">Your email (for a reply)</label>
+		<input id="contact-email" name="replyEmail" type="email" required autocomplete="email" />
+
+		<label for="contact-message">Message</label>
+		<textarea id="contact-message" name="message" rows="6" required />
+
+		<TurnstileWidget />
+		<button type="submit">Send</button>
+	</form>
+</BaseLayout>

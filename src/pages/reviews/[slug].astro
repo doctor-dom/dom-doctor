@@ -1,0 +1,37 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NotebookProse from "../../components/NotebookProse.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const entries = await getCollection("reviews", ({ data }) => !data.draft);
+	return Promise.all(
+		entries.map(async (entry) => ({
+			params: { slug: entry.id },
+			props: { entry, ...(await render(entry)) },
+		})),
+	);
+}
+
+const { entry, Content } = Astro.props;
+const { data } = entry;
+---
+
+<BaseLayout title={`Review · ${data.tool}`} current="reviews">
+	<h1>{data.tool}</h1>
+	<p class="notebook-meta">
+		{data.category} · {data.setting} · as of {data.asOf.toISOString().slice(0, 10)} · still using:{" "}
+		{data.stillUsing}
+	</p>
+	<p><strong>Summary.</strong> {data.summary}</p>
+	<p>
+		<strong>Would repeat?</strong> {data.wouldRepeat ? "yes" : "no"} · <strong>Conflicts:</strong> {data.conflicts}
+	</p>
+	<NotebookProse>
+		<Content />
+	</NotebookProse>
+	<Disclaimer />
+</BaseLayout>

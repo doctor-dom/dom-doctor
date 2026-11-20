@@ -1,0 +1,30 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
+import { getCollection } from "astro:content";
+
+const reviews = (await getCollection("reviews", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.asOf.valueOf() - a.data.asOf.valueOf(),
+);
+---
+
+<BaseLayout title="Reviews" current="reviews">
+	<h1>Reviews</h1>
+	<p class="notebook-meta">First-person notes on tools I actually use. Not endorsements.</p>
+	<ul class="entry-list">
+		{
+			reviews.map((review) => (
+				<li>
+					<a href={`/reviews/${review.id}`}>{review.data.tool}</a>
+					<span class="meta">
+						{review.data.asOf.toISOString().slice(0, 10)} · still using: {review.data.stillUsing} ·{" "}
+						{review.data.summary}
+					</span>
+				</li>
+			))
+		}
+	</ul>
+	<Disclaimer />
+</BaseLayout>

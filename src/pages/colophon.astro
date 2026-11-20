@@ -1,0 +1,21 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Colophon" current="colophon">
+	<h1>Colophon</h1>
+	<p class="notebook-meta">How this notebook is kept.</p>
+	<ul>
+		<li>Essays and catalog data live as markdown in a public git repository.</li>
+		<li>Design tokens and layout are described in <code>DESIGN.md</code> in the public repository.</li>
+		<li>Pages are pre-rendered with Astro; contact and subscribe run on a Cloudflare Worker.</li>
+		<li>ORCID and GitHub remain canonical publication and code records.</li>
+		<li>Interactive tools with their own release cycle deploy on subdomains and are linked from project pages.</li>
+	</ul>
+	<p>
+		Authoring conventions: <code>~~strikethrough~~</code>, <code>++handwritten++</code>, and lines starting with{" "}
+		<code>Margin:</code> for margin notes.
+	</p>
+</BaseLayout>

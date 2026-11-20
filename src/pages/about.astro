@@ -1,0 +1,72 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NotebookProse from "../components/NotebookProse.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+import { render } from "astro:content";
+import { getProfile, profileLinks } from "../lib/profile";
+
+const profile = await getProfile();
+const { Content } = await render(profile);
+const links = profileLinks(profile.data);
+const pageTitle = profile.data.name ? `About · ${profile.data.name}` : "About";
+---
+
+<BaseLayout title={pageTitle} current="about">
+	<h1>About</h1>
+	<p class="notebook-meta">{profile.data.role}</p>
+	{
+		profile.data.longBio ? (
+			<p>{profile.data.longBio}</p>
+		) : (
+			<p>Add <code>longBio</code> in <code>src/content/profile/index.md</code>.</p>
+		)
+	}
+
+	{
+		profile.data.affiliations.length ? (
+			<>
+				<h2>Affiliations</h2>
+				<ul>
+					{profile.data.affiliations.map((line) => (
+						<li>{line}</li>
+					))}
+				</ul>
+			</>
+		) : null
+	}
+
+	{
+		profile.data.disclosures.length ? (
+			<>
+				<h2>Disclosures</h2>
+				<ul>
+					{profile.data.disclosures.map((line) => (
+						<li>{line}</li>
+					))}
+				</ul>
+			</>
+		) : null
+	}
+
+	{
+		links.length ? (
+			<>
+				<h2>Canonical profiles</h2>
+				<ul>
+					{links.map((link) => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))}
+				</ul>
+			</>
+		) : null
+	}
+
+	<NotebookProse>
+		<Content />
+	</NotebookProse>
+	<Disclaimer />
+</BaseLayout>

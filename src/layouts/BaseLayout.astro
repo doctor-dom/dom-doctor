@@ -1,0 +1,63 @@
+---
+import "../styles/notebook.css";
+
+interface Props {
+	title: string;
+	description?: string;
+	current?: string;
+}
+
+const { title, description = "Physician-scientist lab notebook on dom.doctor" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const analyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
+const nav = [
+	{ href: "/", label: "bench", key: "home" },
+	{ href: "/about", label: "about", key: "about" },
+	{ href: "/projects", label: "projects", key: "projects" },
+	{ href: "/reviews", label: "reviews", key: "reviews" },
+	{ href: "/notes", label: "journal", key: "notes" },
+	{ href: "/contact", label: "contact", key: "contact" },
+	{ href: "/colophon", label: "colophon", key: "colophon" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		{
+			analyticsToken ? (
+				<script
+					defer
+					src="https://static.cloudflareinsights.com/beacon.min.js"
+					data-cf-beacon={`{"token": "${analyticsToken}"}`}
+				/>
+			) : null
+		}
+	</head>
+	<body>
+		<div class="site-shell">
+			<header class="site-header">
+				<div class="site-title"><a href="/">dom.doctor</a></div>
+				<nav class="site-nav" aria-label="Primary">
+					{
+						nav.map((item) => (
+							<a href={item.href} aria-current={Astro.props.current === item.key ? "page" : undefined}>
+								{item.label}
+							</a>
+						))
+					}
+				</nav>
+			</header>
+			<main class="notebook-page">
+				<slot />
+			</main>
+		</div>
+	</body>
+</html>

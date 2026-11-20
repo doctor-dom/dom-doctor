@@ -1,0 +1,33 @@
+---
+export const prerender = true;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NotebookProse from "../../components/NotebookProse.astro";
+import Disclaimer from "../../components/Disclaimer.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+	const entries = await getCollection("notes", ({ data }) => !data.draft);
+	return Promise.all(
+		entries.map(async (entry) => ({
+			params: { slug: entry.id },
+			props: { entry, ...(await render(entry)) },
+		})),
+	);
+}
+
+const { entry, Content } = Astro.props;
+const { data } = entry;
+---
+
+<BaseLayout title={data.title} current="notes">
+	<h1>{data.title}</h1>
+	<p class="notebook-meta">
+		{data.date.toISOString().slice(0, 10)} · {data.status} · {data.setting}
+	</p>
+	<p>{data.summary}</p>
+	<NotebookProse>
+		<Content />
+	</NotebookProse>
+	<Disclaimer />
+</BaseLayout>
