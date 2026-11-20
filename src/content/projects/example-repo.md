@@ -13,6 +13,4 @@ This page is an **example**, not a live product.
 
 The catalog keeps canonical code on GitHub. ~~An old one-line pitch.~~ ++A project page can ship before a tool has its own subdomain.++
 
-Margin: check live URL when deployed
-
-When a repository graduates to its own Worker, add `live` in front matter and leave this narrative here.
+When a repository graduates to its own Worker, add `live`^((check live URL when deployed)) in front matter and leave this narrative here.

@@ -9,7 +9,7 @@ Physician-scientist lab notebook: about page, project catalog, tool reviews, and
 - `src/content/reviews/*.md` — first-person tool notes
 - `src/content/notes/*.md` — journal / build log
 
-See [DESIGN.md](./DESIGN.md) for typography and markdown conventions (`~~strike~~`, `++ink++`, `Margin:` notes).
+See [DESIGN.md](./DESIGN.md) for typography, markdown conventions (`~~strike~~`, `++ink++`, `^((margin note))`), and the [michellelinmd.com](https://michellelinmd.com/) style reference.
 
 ## Local dev
 

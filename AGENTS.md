@@ -1,3 +1,7 @@
+## Design
+
+Visual direction is inspired by https://michellelinmd.com/ (living academic notebook: ruled paper, handwritten ink, margin notes). For any layout, typography, or notebook-chrome change, read [DESIGN.md](./DESIGN.md) and treat that site as the style reference.
+
 ## Development
 
 When starting the dev server, use background mode:
