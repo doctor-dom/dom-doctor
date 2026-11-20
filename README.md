@@ -23,11 +23,10 @@ npm run dev
 ## Deploy (Cloudflare Workers)
 
 ```bash
-npm run build
-npx wrangler deploy
+npm run deploy
 ```
 
-Worker name: `dom-doctor`. Production domain: `https://dom.doctor` (custom domain attached in the dashboard or `wrangler.jsonc` routes).
+Worker name: `dom-doctor`. Preview: `https://dom-doctor.dfilingeri.workers.dev`. Production apex: `https://dom.doctor` (see [docs/cloudflare-setup.md](./docs/cloudflare-setup.md) if DNS already points elsewhere).
 
 Secrets (not in git): `TURNSTILE_SECRET`, `CONTACT_TO`. Public env: `PUBLIC_TURNSTILE_SITEKEY`, optional `PUBLIC_CF_WEB_ANALYTICS_TOKEN`.
 
